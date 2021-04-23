@@ -1,0 +1,50 @@
+-Bảo mật (Security) :
+	+ User có những quyền gì, xem được những dữ liệu nào ?, được sử dụng chức năng gì và tính xác thực
+- Độ sẵn sàng cao (High Availability)
+	+ Đảm bảo CSDL luôn sẵn sàng phục vụ ngay cả khi có sự cố
+- Độ tin cậy (Reliability)
+	+ DBA phải có kế hoạch để chẩn đoán và bảo trì hệ thống, phát hiện kịp thời các sự cố tiềm ẩn, đảm bảo hệ năng của hiệu thống
+- Khả năng phục hồi (Recoverability)
+	+ Khi sự cố xảy ra, DB không thể tiếp tục làm việc thì nó phải được phục hồi càng nhanh càng tốt với lượng dữ liệu bị mất là ít nhất
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+- Trong DB của SQL Server gồm :
+	+ Data files: dùng để lưu dữ liệu và đối tượng. Có 2 loại data files
+		• Primary data file : Chứa tất cả các thông tin khởi động của DB, chứa con trỏ đến các file còn lại trong DB. Bắt buộc có 1 và chỉ 1 (.mdf)
+		• Secondary data file : Có thể dùng mở rộng lưu trữ dữ liệu và đối tượng của người dùng không có trong primary file. Không bắt buộc hoặc có thể có nhiều (.ndf)
+	+ Log files : dùng để lưu trữ thông tin transaction log
+		• Transaction log files :Lưu tất cả các thông tin cần thiết về các transaction. Bắt buộc phải có ít nhất 1 log file, có thể có nhiều log files (.ldf)
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+declare @length int, @hoten varchar(50)
+set @hoten = 'Lam thi hung dung'
+select len(substring(@hoten,1,len(@hoten)-charindex(' ',reverse(@hoten))))
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+declare @length int, @hoten varchar(50)
+set @hoten = 'Lam thi hung dung'
+select charindex(' ',reverse(@hoten)) - 1
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Declare @result varchar(50), @Temp varchar(50), @i int = 1
+Set @Temp = 'aaa!sa djkhaAAfj5432aGS AKDG AK@@'
+while @i <= LEN(@temp)
+begin
+if((ASCII(SUBSTRING(@temp,@i,2)) not between 65 and 90) and (ASCII(SUBSTRING(@temp,@i,1)) not between 97 and 122) and (ASCII(SUBSTRING(@temp,@i,1)) <> 32))
+	begin
+		set @result = SUBSTRING(@temp,@i,1)
+		print @result
+	end
+	set @i=@i+1
+end
