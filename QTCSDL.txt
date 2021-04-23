@@ -1,0 +1,75 @@
+ 
+1. RAID là gì? Trình bày RAID 0,1,5 ?
+
+- RAID là hình thức ghép nhiều ổ đĩa cứng vật lý thành một hệ thống ổ đĩa cứng có chức năng gia tăng tốc độ đọc ghi dữ liệu, tăng hiệu suất và sửa chữa những lỗi trong quá trình làm việc của ổ cứng
+- Tổ chức RAID được định nghĩa dựa trên sự kết hợp của 2 yếu tố:
+  + Mức độ chia vệt(theo bit, byte, block).
+  + Khuôn mẫu dùng các thông tin trùng lắp.
+-----------------------------------------------------------------------------------
+   RAID 0 (stripping)
+ - Tối đa tính song song.
+ - Không có trùng lặp dữ liệu.
+ - Tốc độ đọc/ ghi tốt nhất.
+ - Không có khả năng chịu đựng lỗi.
+-------------------------------------------------------------------------------------
+    RAID 1 (Mirror)
+ - Trùng lắp dữ liệu, khi một đĩa hỏng, đĩa còn lại làm việc bình thường => chịu lỗi.
+ - Có thể đọc từ đĩa nào đang có tải thấp hơn => tăng tốc đọc, giảm tốc ghi.
+--------------------------------------------------------------------------------------
+    RAID 5
+  - RAID 5 chính là RAID 4 nhưng các thông tin kiểm tra chẵn lẻ được phân bố đều khắp các đĩa
+  - Khi có sự cố trên 1 đĩa, các thông tin kiểm tra chẵn lẻ được dùng để tái tạo lại dữ liệu trên đĩa hỏng trong khi chờ thay thế.
+------------------------------------------------------------------------------------------
+1. Nêu những tác nhân ảnh hưởng đến tốc độ đọc ghi của hdd và bộ nhớ trong	
+	+ Tốc độ quay (rotation speed of the platters)
+	+ Độ trễ (latency)
+	+ Tốc độ truy xuất dữ liệu (the disk transfer rate)
+	+ Số lượng đĩa
+	+ Công nghệ
+	+ Dung lượng bộ nhớ đệm		
+
+///////////////////////////////////////////////////////////////////////////////////////////
+
+
+-Bảo mật (Security) :
+	+ User có những quyền gì, xem được những dữ liệu nào ?, được sử dụng chức năng gì và tính xác thực
+- Độ sẵn sàng cao (High Availability)
+	+ Đảm bảo CSDL luôn sẵn sàng phục vụ ngay cả khi có sự cố
+- Độ tin cậy (Reliability)
+	+ DBA phải có kế hoạch để chẩn đoán và bảo trì hệ thống, phát hiện kịp thời các sự cố tiềm ẩn, đảm bảo hiệu năng của hệ thống
+- Khả năng phục hồi (Recoverability)
+	+ Khi sự cố xảy ra, DB không thể tiếp tục làm việc thì nó phải được phục hồi càng nhanh càng tốt với lượng dữ liệu bị mất là ít nhất
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+- Trong DB của SQL Server gồm :
+	+ Data files: dùng để lưu dữ liệu và đối tượng. Có 2 loại data files
+		• Primary data file : Chứa tất cả các thông tin khởi động của DB, chứa con trỏ đến các file còn lại trong DB. Bắt buộc có 1 và chỉ 1 (.mdf)
+		• Secondary data file : Có thể dùng mở rộng lưu trữ dữ liệu và đối tượng của người dùng không có trong primary file. Không bắt buộc hoặc có thể có nhiều (.ndf)
+	+ Log files : dùng để lưu trữ thông tin transaction log
+		• Transaction log files :Lưu tất cả các thông tin cần thiết về các transaction. Bắt buộc phải có ít nhất 1 log file, có thể có nhiều log files (.ldf)
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+declare @length int, @hoten varchar(50)
+set @hoten = 'Lam thi hung dung'
+select len(substring(@hoten,1,len(@hoten)-charindex(' ',reverse(@hoten))))
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+declare @length int, @hoten varchar(50)
+set @hoten = 'Lam thi hung dung'
+select charindex(' ',reverse(@hoten)) - 1
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+declare @hoten varchar(50)
+set @hoten = 'jdhfjsd hfjds 231 @!#$!@# wjewrh'
+select @hoten, case when patindex('%[^a-zA-Z ]%,@hoten)	> 0 then 'có' else 'không có' end		
